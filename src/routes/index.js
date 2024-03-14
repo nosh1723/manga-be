@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const controller = require("../controllers");
-router.get("/api/listmanga", controller.fetchManga);
+
+router.post("/api/register", controller.register);
 
 module.exports = router;
