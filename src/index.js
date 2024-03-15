@@ -7,6 +7,7 @@ const db = require("./config");
 
 const app = express();
 
+const port = 6060;
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors());
 app.use(morgan("common"));
@@ -18,6 +19,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(6969, () => {
-  console.log(`App listening on port 6969`);
+db.connect().then(() => {
+  app.listen(port, () => {
+    console.log(`App listening on port 6060`);
+  });
 });
