@@ -12,6 +12,11 @@ app.use(cors());
 app.use(morgan("common"));
 db.connect();
 app.use(route);
+app.get("/", (req, res) => {
+  res.status(200).json({
+    title: "heeloo",
+  });
+});
 
 app.listen(6969, () => {
   console.log(`App listening on port 6969`);
