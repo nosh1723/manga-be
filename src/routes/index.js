@@ -1,6 +1,11 @@
 const router = require("express").Router();
 const controller = require("../controllers");
 
+router.get("/", (req, res) => {
+  res.status(200).json({
+    title: "Hello",
+  });
+});
 router.post("/api/register", controller.register);
 router.post("/api/login", controller.login);
 router.post("/api/create-manga", controller.createManga);
