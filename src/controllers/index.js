@@ -119,6 +119,22 @@ const service = {
 
   getAllManga: async (req, res) => {
     try {
+      const PAGE_SIZE = 6;
+      const page = req.query.page;
+      const total = await Manga.countDocuments();
+      if (page) {
+        if (parseInt(page) < 1) page = 1;
+        const skip = (parseInt(page) - 1) * PAGE_SIZE;
+        const manga = await Manga.find().skip(skip).limit(PAGE_SIZE);
+        return res.status(200).json({
+          EM: "Get all manga successfully!", //error message
+          EC: "0", //error code
+          per_page: PAGE_SIZE,
+          total,
+          totalPage: Math.ceil(total / PAGE_SIZE),
+          DT: manga, //data
+        });
+      }
       const manga = await Manga.find();
       return res.status(200).json({
         EM: "Get all manga successfully!", //error message
