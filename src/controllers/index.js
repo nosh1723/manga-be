@@ -183,7 +183,7 @@ const service = {
         });
       }
 
-      await Manga.updateOne({ $set: req.body });
+      await checkManga.updateOne({ $set: req.body });
       return res.status(200).json({
         EM: "Update manga successfully!", //error message
         EC: "0", //error code
