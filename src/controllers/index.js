@@ -121,11 +121,16 @@ const service = {
     try {
       const PAGE_SIZE = 6;
       const page = req.query.page;
+      const searchValue = req.query.search;
       const total = await Manga.countDocuments();
       if (page) {
         if (parseInt(page) < 1) page = 1;
         const skip = (parseInt(page) - 1) * PAGE_SIZE;
-        const manga = await Manga.find().skip(skip).limit(PAGE_SIZE);
+        const manga = await Manga.find({
+          name: { $regex: searchValue || "", $options: "i" },
+        })
+          .skip(skip)
+          .limit(PAGE_SIZE);
         return res.status(200).json({
           EM: "Get all manga successfully!", //error message
           EC: "0", //error code
